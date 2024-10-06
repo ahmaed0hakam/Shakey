@@ -5,19 +5,20 @@ import { MoonService } from './moon.service';
 import { finalize } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-moon',
   standalone: true,
-  imports: [EarthquakeVisualizerComponent, SidebarComponent, HttpClientModule],
+  imports: [EarthquakeVisualizerComponent, SidebarComponent, HttpClientModule, CommonModule],
   templateUrl: './moon.component.html',
   styleUrl: './moon.component.sass',
   providers: [MoonService],
 })
 export class MoonComponent {
   isLoading:  boolean = false;
-  quakesData!: any
+  quakesData: any[] = [];
 
   constructor(
     private moonService: MoonService
@@ -26,9 +27,14 @@ export class MoonComponent {
   }
 
   getQuakes(filters: Event): void {
+    let params = {
+      planet:  'mars',
+      ...filters
+    }
+
     this.isLoading = true;
 
-    this.moonService.getQuakes(filters).pipe(
+    this.moonService.getQuakes(params).pipe(
       finalize(() => {
         this.isLoading = false;
       })
@@ -37,7 +43,11 @@ export class MoonComponent {
        this.quakesData = data;
       },
       error: (error: any) => {
-        console.log("hehe")
+        this.quakesData = [
+          { id: 1, lat: -34.055161, long: -118.25 },
+          { id: 2, lat: 20.055161, long: -118.25 },
+          { id: 3, lat: 19.05, long: -120.25 }
+      ];
       }
     });
   }

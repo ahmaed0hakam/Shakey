@@ -18,7 +18,8 @@ import { MarkerDetailsModal } from './marker-details-modal/marker-details-modal.
 export class EarthquakeVisualizerComponent implements AfterViewInit {
   @ViewChild('canvasContainer', { static: true }) canvasContainer!: ElementRef;
 
-  @Input() planet: string = ''
+  @Input() planet: string = '';
+  @Input() quakesData: any;
 
   private scene!: THREE.Scene;
   private camera!: THREE.PerspectiveCamera;
@@ -50,7 +51,7 @@ export class EarthquakeVisualizerComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initScene();
-    this.addMarkersOnPlanet();
+    this.addMarkersOnPlanet(); // This will be modified to conditionally add markers
     this.animate();
 
     this.canvas = this.renderer.domElement;
@@ -58,7 +59,7 @@ export class EarthquakeVisualizerComponent implements AfterViewInit {
     // Add event listeners for mouse move and click
     this.canvas.addEventListener('mouseenter', (event) => this.onMouseMove(event));
     this.canvas.addEventListener('click', (event) => this.isFocusing = false);
-  }
+}
 
   private initScene() {
     this.scene = new THREE.Scene();
@@ -95,38 +96,47 @@ export class EarthquakeVisualizerComponent implements AfterViewInit {
   }
 
   private addMarkersOnPlanet() {
+    // Clear existing markers if any
+    this.markers.forEach(marker => this.scene.remove(marker));
+    this.markers = []; // Reset the markers array
+
     const radius = 5; // Planet radius
     const markerGeometry = new THREE.SphereGeometry(0.1, 32, 32); // Increased marker size for easier clicking
     const markerMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 }); // Red color
 
-    // Iterate over the earthquake data
-    for (const { id, lat, long } of this.earthquakeData) {
-      // Convert latitude and longitude to spherical coordinates
-      const phi = (90 - lat) * (Math.PI / 180); // Convert to radians
-      const theta = (long + 180) * (Math.PI / 180); // Convert to radians
+    // Check if quakesData is available and has markers
+    if (this.quakesData?.length > 0) {
+      for (const { lat, long, id } of this.quakesData) {
+        // Convert latitude and longitude to spherical coordinates
+        const phi = (90 - lat) * (Math.PI / 180); // Convert to radians
+        const theta = (long + 180) * (Math.PI / 180); // Convert to radians
 
-      // Calculate the 3D position on the sphere
-      const x = radius * Math.sin(phi) * Math.cos(theta);
-      const y = radius * Math.cos(phi);
-      const z = radius * Math.sin(phi) * Math.sin(theta);
+        // Calculate the 3D position on the sphere
+        const x = radius * Math.sin(phi) * Math.cos(theta);
+        const y = radius * Math.cos(phi);
+        const z = radius * Math.sin(phi) * Math.sin(theta);
 
-      // Create a marker mesh and set its position
-      const marker = new THREE.Mesh(markerGeometry, markerMaterial);
-      marker.position.set(x, y, z);
+        // Create a marker mesh and set its position
+        const marker = new THREE.Mesh(markerGeometry, markerMaterial);
+        marker.position.set(x, y, z);
 
-      // Store marker along with its latitude and longitude
-      marker.userData = { lat, long };
+        // Store marker along with its latitude and longitude
+        marker.userData = { lat, long, id, planet:  this.planet };
 
-      // Enable raycasting and interactions on this marker
-      marker.name = `Marker-${id}`; // Use the ID for the marker name
 
-      // Add the marker to the markers array
-      this.markers.push(marker);
+        // Enable raycasting and interactions on this marker
+        marker.name = `Marker-${lat}-${long}`; // Unique name for the marker
 
-      // Add the marker to the scene
-      this.scene.add(marker);
+        // Add the marker to the markers array
+        this.markers.push(marker);
+
+        // Add the marker to the scene
+        this.scene.add(marker);
+      }
     }
+    // If no markers, the planet will still be displayed alone
   }
+
 
   private animate() {
     requestAnimationFrame(() => this.animate());
@@ -208,7 +218,7 @@ export class EarthquakeVisualizerComponent implements AfterViewInit {
     const marker = this.markers[index];
 
     const dialogRef = this.dialog.open(MarkerDetailsModal, {
-      width: '300px', // Adjust width as needed
+      // width: '300px', // Adjust width as needed
       data: marker // Pass the marker data to the modal
     });
 

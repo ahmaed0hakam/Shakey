@@ -2,7 +2,12 @@
 <mat-dialog-content>
   <p>Latitude: {{ markerDetails?.userData?.lat }}</p>
   <p>Longitude: {{ markerDetails?.userData?.long }}</p>
-  <!-- Add more details as needed -->
+  <p *ngIf="markerDetails?.userData?.planet == 'moon'">The Cause: Impact</p>
+  <img *ngIf="markerDetails?.userData?.planet == 'moon'" [src]="'/assets/images/quakes/'+markerDetails.userData.id+'.jpg'" alt="" width="600">
+
+  <img *ngIf="markerDetails?.userData?.planet == 'mars'" [src]="'/assets/images/mars/'+markerDetails.userData.id+'.jpg'" alt="" width="800">
+
+
 </mat-dialog-content>
 <mat-dialog-actions>
   <button class="btn-secondary" (click)="close()">Close</button>

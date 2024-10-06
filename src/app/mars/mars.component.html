@@ -1,2 +1,2 @@
-<app-sidebar></app-sidebar>
-<app-earthquake-visualizer [planet]="'mars'"></app-earthquake-visualizer>
+<app-sidebar (filtersChange)="getQuakes($event)"></app-sidebar>
+<app-earthquake-visualizer *ngIf="!isLoading" [planet]="'mars'" [quakesData]="quakesData"></app-earthquake-visualizer>
