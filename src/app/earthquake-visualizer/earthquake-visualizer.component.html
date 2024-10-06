@@ -1,0 +1,12 @@
+<div class="quakes-visualizer">
+    <div class="canvas-container" style="cursor: grab;" #canvasContainer></div>
+
+    <div class="sidebar">
+        <ul>
+            <li *ngFor="let marker of markers; let i = index">
+                <button (click)="focusOnMarker(i)">Lat: {{ marker.userData['lat'] }}, Long: {{ marker.userData['long']
+                    }}</button>
+            </li>
+        </ul>
+    </div>
+</div>

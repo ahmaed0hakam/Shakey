@@ -1,0 +1,27 @@
+@import "../../assets/sass/_variables"
+:host
+    margin-top: 93px
+.sidebar
+    width: 250px
+    background-color: $light-grey
+    height: 100%
+    padding: 15px
+    position: relative  // Changed from fixed to relative
+    top: 0  // Align to the top of the content container
+    bottom: auto  // Remove bottom alignment
+    h2
+        margin-bottom: 15px
+
+    mat-card
+        padding: 10px
+    ul
+        list-style-type: none
+        padding: 0
+        li
+            margin: 10px 0
+            a
+                color: $primary-color
+                text-decoration: none
+                &:hover
+                    text-decoration: underline
+

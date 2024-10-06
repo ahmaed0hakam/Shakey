@@ -1,0 +1,30 @@
+@import "../../assets/sass/_variables"
+nav 
+    background-color: #fff !important
+    border-bottom: 1.5px solid $footer-border-color
+
+    .navbar-nav 
+        align-items: flex-end !important
+
+        .nav-item
+            &:hover
+                cursor: pointer
+            .nav-link 
+                img 
+                    width: 60px
+                    padding: 5px
+                    border: 2px solid $dark-grey
+                    border-radius: 50%
+                    transition: border-color 0.3s ease
+
+                    &:hover 
+                        border-color: $primary-color
+
+            .logout-button 
+                text-decoration-color: transparent
+                transition: text-decoration-color, font-size 0.3s ease
+
+                &:hover 
+                    text-decoration: underline
+                    text-decoration-color: $primary-color
+                    font-size: 18px
