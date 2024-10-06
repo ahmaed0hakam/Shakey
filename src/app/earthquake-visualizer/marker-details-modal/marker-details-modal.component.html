@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Marker Details</h2>
+<mat-dialog-content>
+  <p>Latitude: {{ markerDetails?.userData?.lat }}</p>
+  <p>Longitude: {{ markerDetails?.userData?.long }}</p>
+  <!-- Add more details as needed -->
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="btn-secondary" (click)="close()">Close</button>
+</mat-dialog-actions>

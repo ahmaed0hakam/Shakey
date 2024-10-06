@@ -1,10 +1,13 @@
 <div class="sidebar">
-    <h2>Filters</h2>
-    <div>
-        
+    <div class="content">
+        <div>
+            <h2>Filters</h2>
+            <mat-card>
+                <h5>Date</h5>
+                <mat-calendar [selected]="selectedRangeValue" [startAt]="pastDate"
+                    (selectedChange)="selectedDateChange($event)"></mat-calendar>
+            </mat-card>
+        </div>
+        <button class="btn-bluesky" (click)="search()" [disabled]="!filters.from && !filters.to" [class.disabled]="!filters.from && !filters.to">Search</button>
     </div>
-    <mat-card>
-        <h5>Date</h5>
-        <mat-calendar [selected]="selectedRangeValue" [startAt]="pastDate" (selectedChange)="selectedDateChange($event)"></mat-calendar>
-    </mat-card>
 </div>

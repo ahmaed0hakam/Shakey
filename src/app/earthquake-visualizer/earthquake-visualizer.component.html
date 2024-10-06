@@ -1,12 +1,21 @@
 <div class="quakes-visualizer">
     <div class="canvas-container" style="cursor: grab;" #canvasContainer></div>
-
-    <div class="sidebar">
-        <ul>
-            <li *ngFor="let marker of markers; let i = index">
-                <button (click)="focusOnMarker(i)">Lat: {{ marker.userData['lat'] }}, Long: {{ marker.userData['long']
-                    }}</button>
-            </li>
-        </ul>
+  
+    <div class="pins-list">
+      <ul>
+        <li *ngFor="let marker of markers; let i = index">
+          <button
+            class="btn-bluesky full-width"
+            (click)="toggleMenu(i); selectedMarker = marker"
+          >
+            Lat: {{ marker.userData['lat'] }}, Long: {{ marker.userData['long'] }}
+          </button>
+          <div *ngIf="activeMenuIndex === i" class="custom-menu">
+            <button class="btn-secondary" (click)="focusOnMarker(i)">Focus on Marker</button>
+            <button class="btn-secondary" (click)="getMarkerDetails(i)">Show more Details</button>
+          </div>
+        </li>
+      </ul>
     </div>
-</div>
+  </div>
+  
