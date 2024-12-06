@@ -3,9 +3,9 @@
   <p>Latitude: {{ markerDetails?.userData?.lat }}</p>
   <p>Longitude: {{ markerDetails?.userData?.long }}</p>
   <p *ngIf="markerDetails?.userData?.planet == 'moon'">The Cause: Impact</p>
-  <img *ngIf="markerDetails?.userData?.planet == 'moon'" [src]="'/assets/images/quakes/'+markerDetails.userData.id+'.jpg'" alt="" width="600">
+  <img *ngIf="markerDetails?.userData?.planet == 'moon'" [src]="'assets/images/quakes/'+markerDetails.userData.id+'.jpg'" alt="" width="600">
 
-  <img *ngIf="markerDetails?.userData?.planet == 'mars'" [src]="'/assets/images/mars/'+markerDetails.userData.id+'.jpg'" alt="" width="800">
+  <img *ngIf="markerDetails?.userData?.planet == 'mars'" [src]="'assets/images/mars/'+markerDetails.userData.id+'.jpg'" alt="" width="800">
 
 
 </mat-dialog-content>
