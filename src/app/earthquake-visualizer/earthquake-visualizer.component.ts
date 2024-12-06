@@ -41,9 +41,6 @@ export class EarthquakeVisualizerComponent implements AfterViewInit {
 
   selectedMarker: any;
 
-  // Simulating dummy backend data for latitudes and longitudes
-  private latitudes = [34.05, 48.85, -15.78]; // Sample latitudes
-  private longitudes = [-118.25, 2.35, -47.93]; // Sample longitudes
 
   constructor(private dialog: MatDialog) {
 
@@ -83,7 +80,7 @@ export class EarthquakeVisualizerComponent implements AfterViewInit {
     this.scene.add(new THREE.AmbientLight(0xffffff, 4));
 
     // Load planet texture (Moon for now)
-    const texture = this.textureLoader.load(`../../assets/images/${this.planet}.jpg`);
+    const texture = this.textureLoader.load(`assets/images/${this.planet}.jpg`);
 
     // Planet Geometry (Sphere)
     const planetGeometry = new THREE.SphereGeometry(5, 64, 64);
