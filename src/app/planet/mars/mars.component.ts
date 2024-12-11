@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { EarthquakeVisualizerComponent } from '../earthquake-visualizer/earthquake-visualizer.component';
-import { SidebarComponent } from '../sidebar/sidebar.component';
+import { EarthquakeVisualizerComponent } from '../../earthquake-visualizer/earthquake-visualizer.component';
+import { SidebarComponent } from '../../sidebar/sidebar.component';
 import { MarsService } from './mars.service';
 import { finalize } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [EarthquakeVisualizerComponent, SidebarComponent, HttpClientModule, CommonModule],
   templateUrl: './mars.component.html',
-  styleUrl: './mars.component.sass',
+  styleUrls: ['./mars.component.sass', '../planet.sass'],
   providers: [MarsService]
 })
 export class MarsComponent {

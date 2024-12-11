@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { EarthquakeVisualizerComponent } from '../earthquake-visualizer/earthquake-visualizer.component';
-import { SidebarComponent } from '../sidebar/sidebar.component';
+import { EarthquakeVisualizerComponent } from '../../earthquake-visualizer/earthquake-visualizer.component';
+import { SidebarComponent } from '../../sidebar/sidebar.component';
 import { MoonService } from './moon.service';
 import { finalize } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+
+
 
 
 @Component({
@@ -13,7 +14,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [EarthquakeVisualizerComponent, SidebarComponent, HttpClientModule, CommonModule],
   templateUrl: './moon.component.html',
-  styleUrl: './moon.component.sass',
+  styleUrls: ['./moon.component.sass', '../planet.sass'],
   providers: [MoonService],
 })
 export class MoonComponent {
