@@ -61,9 +61,11 @@ export class EarthquakeVisualizerComponent implements AfterViewInit {
   private initScene() {
     this.scene = new THREE.Scene();
 
-    // Camera setup
+    const isMobile = window.innerWidth <= 768;
+    const initialZPosition = isMobile ? 30 : 10;
+  
     this.camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
-    this.camera.position.set(0, 0, 10);
+    this.camera.position.set(0, 0, initialZPosition);
 
     // Renderer setup
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -73,7 +75,7 @@ export class EarthquakeVisualizerComponent implements AfterViewInit {
     // Add orbit controls
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.enablePan = false;
-    this.controls.maxDistance = 14.02;
+    this.controls.maxDistance = 20;
     this.controls.minDistance = 7.01;
 
     // Ambient light
